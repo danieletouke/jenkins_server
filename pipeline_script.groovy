@@ -1,3 +1,4 @@
+def MY_REGION=''
 pipeline {
     agent any
 
