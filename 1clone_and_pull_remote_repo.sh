@@ -2,7 +2,7 @@
 
 #Clone my github repo
 
-PROJECT=jenkins_server.git
+PROJECT=jenkins_server
 
 
 if [ -d "$PROJECT" ];
@@ -13,7 +13,7 @@ else
 fi
 
 
-cd jenkins_server.git/
+cd jenkins_server/
 
 if [ $?==0];
 then
