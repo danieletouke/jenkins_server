@@ -13,5 +13,6 @@ else
     terraform init
 fi
 
+MY_REGION=`yq '.aws_regions.region' $FILE`
 
 terraform apply -var 'region_selector=$MY_REGION' --auto-approve
