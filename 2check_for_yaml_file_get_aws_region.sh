@@ -8,6 +8,8 @@
 
 #check for a my_file.yml
 
+cd /var/lib/jenkins/workspace/terraform_deploy/jenkins_server/
+
 FILE=my_file.yml
 
 if [ -f "$FILE" ];

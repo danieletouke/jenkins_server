@@ -20,11 +20,15 @@ resource "aws_instance" "jenkins-server" {
       yum update –y
       wget -O /etc/yum.repos.d/jenkins.repo \
       https://pkg.jenkins.io/redhat-stable/jenkins.repo
+      amazon-linux-extras install java-openjdk11 -y
       rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
       yum upgrade -y
       yum install aws-cli -y
+
+      wget https://releases.hashicorp.com/terraform/1.3.7/terraform_1.3.7_linux_amd64.zip
+      unzip terraform_1.3.7_linux_amd64.zip
+      mv terraform /usr/local/bin
       yum install terraform -y
-      amazon-linux-extras install java-openjdk11 -y
       yum install jenkins -y
       systemctl enable --now jenkins
       yum install docker -y

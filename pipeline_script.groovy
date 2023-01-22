@@ -11,13 +11,13 @@ pipeline {
         stage('Checking') {
             steps {
                 echo 'Checking for yaml file...'
-                sh 'source /var/lib/jenkins/2check_for_yaml_file_get_aws_region.sh'
+                sh 'source /var/lib/jenkins/workspace/terraform_deploy/jenkins_server/2check_for_yaml_file_get_aws_region.sh'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh 'source /var/lib/jenkins/3terraform_apply.sh'
+                sh 'source /var/lib/jenkins/workspace/terraform_deploy/jenkins_server/3terraform_apply.sh'
             }
         }  
     }
