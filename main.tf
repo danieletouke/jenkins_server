@@ -1,4 +1,4 @@
-resource "aws_instance" "jenkins-master" {
+resource "aws_instance" "jenkins-server" {
   
   root_block_device {
     volume_size = "50"
@@ -30,6 +30,8 @@ resource "aws_instance" "jenkins-master" {
       yum install docker -y
       systemctl enable --now docker
       yum install git -y
+      wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+      chmod +x /usr/bin/yq
 
 
       EOF
