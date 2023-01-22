@@ -14,4 +14,4 @@ else
 fi
 
 
-terraform apply -var 'region_selector=MY_REGION' --auto-approve
+terraform apply -var 'region_selector=$MY_REGION' --auto-approve
