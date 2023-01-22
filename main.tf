@@ -4,15 +4,14 @@ resource "aws_instance" "jenkins-server" {
     volume_size = "50"
     volume_type = "gp3"
   }
-  iam_instance_profile = aws_iam_instance_profile.jenkins_profile.name
+  iam_instance_profile = aws_iam_instance_profile.jenkins_profile2.role
   ami           = data.aws_ami.latest-ami2.id
   instance_type = "t2.micro"
   
   tags = {
     Name = "My 2nd Jenkins Server"
   }
-  vpc_security_group_ids = [ "sg-07072bbbaea42e6d4" ]
-  key_name = "nvkp-dev"
+  vpc_security_group_ids = [ aws_security_group.jenkins_sg.id ]
 
   user_data = <<EOF
       #!/bin/bash
@@ -46,7 +45,38 @@ resource "aws_instance" "jenkins-server" {
   assume_role_policy  = jsonencode()
 } */
 
-resource "aws_iam_instance_profile" "jenkins_profile" {
-  name = "jenkins-profile"
+resource "aws_iam_instance_profile" "jenkins_profile2" {
+  name = "jenkins-profile2"
   role = "ec2-access-s3"  # The role name can be found in the console for aws managed policies and other pre-created policies
+}
+
+resource "aws_security_group" "jenkins_sg" {
+  name = "jenkins-security-group"
+}
+# creating rules for my jenkins_sg security group
+resource "aws_security_group_rule" "allow_ssh_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.jenkins_sg.id
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "allow_jenkins_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.jenkins_sg.id
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "allow_jenkins_all_outbound" {
+  type              = "egress"
+  security_group_id = aws_security_group.jenkins_sg.id
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
 }
