@@ -1,0 +1,8 @@
+aws_regions:
+  region: us-west-2
+  resources: 2
+  tags:
+    - dev
+    - demo
+    
+
