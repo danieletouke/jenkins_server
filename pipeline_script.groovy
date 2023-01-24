@@ -1,4 +1,4 @@
-def MY_REGION=''
+def MY_REGION='eu-west-1'
 pipeline {
     agent any
 
