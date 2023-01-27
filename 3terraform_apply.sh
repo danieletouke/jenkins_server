@@ -5,14 +5,14 @@ cd /var/lib/jenkins/workspace/terraform_deploy/jenkins_server/
 
 DIR2=/var/lib/jenkins/workspace/terraform_deploy/jenkins_server/.terraform
 
-if [ -d "$DIR2" ];
-then
-    echo "$DIR2 exists."
+# if [ -d "$DIR2" ];
+# then
+#     echo "$DIR2 exists."
    
-else
-    terraform init
-fi
-
+# else
+#     terraform init
+# fi
+terraform init
 FILE=my_file.yml
 MY_REGION=`yq '.aws_regions.region' $FILE`
 
